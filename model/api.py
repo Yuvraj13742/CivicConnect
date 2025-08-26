@@ -7,8 +7,6 @@ from torchvision import models
 import torch.nn as nn
 import os
 
-# Assuming CATEGORIES and NUM_CLASSES are defined similarly as in model.py
-# For simplicity, we redefine them here or you could import them if model.py was designed as a module
 CATEGORIES = ['Roads', 'Water', 'Electricity', 'Waste', 'Safety', 'Other']
 NUM_CLASSES = len(CATEGORIES)
 
