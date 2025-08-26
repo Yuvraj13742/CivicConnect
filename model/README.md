@@ -33,7 +33,7 @@ Once the model is trained, here's how it processes a new input image to identify
 
 To set up and run this model, you'll need the following Python libraries. It's recommended to install them within a virtual environment.
 
-To install the dependencies, navigate to the project root directory and run:
+To install the dependencies, navigate to the `model` directory and run:
 
 ```bash
 pip install -r requirements.txt
@@ -71,6 +71,30 @@ python model/model.py
 ```
 
 This will initiate the training process and, upon completion, save the trained model weights to `model/issue_reporting_model.pth` and then export the model to ONNX format in the `model/onnx/` directory.
+
+## Data Generation (Optional)
+
+If you don't have a real dataset, you can generate dummy images and corresponding CSV files for both the `dataset` and `training` folders using the `generate_data.py` script. This script will create placeholder images with category labels and populate the `dataset.csv` and `train.csv` files.
+
+To generate data, run the following command from the project root:
+
+```bash
+python model/generate_data.py
+```
+
+This will create:
+- `model/dataset/images/` with dummy images and `model/dataset/dataset.csv`
+- `model/training/images/` with dummy images and `model/training/train.csv`
+
+## Running the Model (Training and Fine-tuning)
+
+To train the model initially and then fine-tune it on each individual image in the training set, run the `model.py` script from the project root:
+
+```bash
+python model/model.py
+```
+
+This script will first perform a standard training loop over multiple epochs. After this initial training, it will then iterate through each image in the `model/training/images/` folder and perform a fine-tuning step on that single image. Upon completion, it will save the trained model weights to `model/issue_reporting_model.pth` and then export the model to ONNX format in the `model/onnx/` directory.
 
 ## Running the FastAPI Server
 

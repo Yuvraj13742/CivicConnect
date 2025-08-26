@@ -67,6 +67,17 @@ train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
+def fine_tune_on_single_image(model, image, label, criterion, optimizer):
+    model.train() # Ensure model is in training mode
+    image, label = image.to(device), label.to(device)
+
+    optimizer.zero_grad()
+    outputs = model(image)
+    loss = criterion(outputs, label)
+    loss.backward()
+    optimizer.step()
+    return loss.item()
+
 def train_model(model, train_loader, criterion, optimizer, num_epochs=10):
     model.train()
     for epoch in range(num_epochs):
@@ -83,8 +94,16 @@ def train_model(model, train_loader, criterion, optimizer, num_epochs=10):
         print(f"Epoch {epoch+1}, Loss: {running_loss/len(train_loader)}")
 
 if __name__ == '__main__':
-    print("Starting training...")
+    print("Starting initial training...")
     train_model(model, train_loader, criterion, optimizer, num_epochs=5) # Reduced epochs for example
+
+    # After initial training, fine-tune on each image from the training set individually
+    print("Starting fine-tuning on individual images...")
+    single_image_loader = DataLoader(train_dataset, batch_size=1, shuffle=False) # Use batch size 1 for individual fine-tuning
+    for i, (images, labels) in enumerate(single_image_loader):
+        loss = fine_tune_on_single_image(model, images, labels, criterion, optimizer)
+        if (i+1) % 100 == 0: # Print loss every 100 images
+            print(f"Fine-tuning image {i+1}, Loss: {loss}")
 
     # Save the trained model's state_dict
     model_save_path = "model/issue_reporting_model.pth"
