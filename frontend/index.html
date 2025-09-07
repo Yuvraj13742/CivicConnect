@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicConnect - Report Municipal Issues</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🏛️ CivicConnect</h1>
+                <p>Report Municipal Issues with AI</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h2>Help Improve Your Community</h2>
+                <p>Upload a photo of a municipal issue and our AI will automatically categorize it to help authorities respond faster.</p>
+            </section>
+
+            <section class="upload-section">
+                <div class="upload-card">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📤</div>
+                        <h3>Upload Issue Photo</h3>
+                        <p>Drag and drop an image here or click to browse</p>
+                        <p class="file-types">Supports: JPG, PNG, GIF (max 10MB)</p>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                        <button class="browse-btn" id="browseBtn">Browse Files</button>
+                    </div>
+                    
+                    <div class="image-preview" id="imagePreview" style="display: none;">
+                        <img id="previewImg" src="" alt="Preview">
+                        <div class="preview-info">
+                            <p id="fileName"></p>
+                            <button class="change-btn" id="changeBtn">Change Image</button>
+                        </div>
+                    </div>
+
+                    <button class="submit-btn" id="submitBtn" disabled>
+                        <span class="btn-text">Analyze Issue</span>
+                        <span class="loading-spinner" style="display: none;">🔄</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="result-section" id="resultSection" style="display: none;">
+                <div class="result-card">
+                    <h3>Analysis Result</h3>
+                    <div class="result-content" id="resultContent">
+                        <!-- Result will be populated by JavaScript -->
+                    </div>
+                    <button class="new-report-btn" id="newReportBtn">Report Another Issue</button>
+                </div>
+            </section>
+
+            <section class="categories-info">
+                <h3>Issue Categories We Detect</h3>
+                <div class="categories-grid">
+                    <div class="category-item">
+                        <div class="category-icon">🛣️</div>
+                        <h4>Roads</h4>
+                        <p>Potholes, damaged pavement, road signs</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">💧</div>
+                        <h4>Water</h4>
+                        <p>Leaks, drainage issues, water quality</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">⚡</div>
+                        <h4>Electricity</h4>
+                        <p>Power outages, damaged lines, streetlights</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">🗑️</div>
+                        <h4>Waste</h4>
+                        <p>Overflowing bins, illegal dumping</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">⚠️</div>
+                        <h4>Safety</h4>
+                        <p>Damaged equipment, hazardous conditions</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">📋</div>
+                        <h4>Other</h4>
+                        <p>General municipal issues</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CivicConnect. Helping communities through technology.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

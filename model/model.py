@@ -31,7 +31,9 @@ class IssueDataset(Dataset):
         return len(self.annotations)
 
     def __getitem__(self, idx):
-        img_name = os.path.join(self.root_dir, self.annotations.iloc[idx, 0])
+        # Fix path separators for cross-platform compatibility
+        img_path = self.annotations.iloc[idx, 0].replace('\\', '/')
+        img_name = os.path.join(self.root_dir, img_path)
         image = Image.open(img_name).convert('RGB')
         label = self.annotations.iloc[idx, 1] # Assuming the second column is the label
 
@@ -60,7 +62,7 @@ model.fc = nn.Linear(num_ftrs, NUM_CLASSES)
 model = model.to(device)
 
 # Placeholder for dataset and dataloader creation
-train_dataset = IssueDataset(csv_file='model/training/train.csv', root_dir='model/training/images', transform=transform)
+train_dataset = IssueDataset(csv_file='model/training/train.csv', root_dir='model/training/', transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
 # Loss function and optimizer
